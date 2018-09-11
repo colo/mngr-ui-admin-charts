@@ -1,6 +1,6 @@
-import DefaultDygraphLine from './js/default.dygraph.line'
+let DefaultDygraphLine = require('../defaults/dygraph.line')
 
-export default Object.merge(Object.clone(DefaultDygraphLine),{
+module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
   // name: 'os.cpus_simple',
   name: function(vm, chart, stats){
     return vm.host+'_os.cpus_percentage'

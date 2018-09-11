@@ -1,6 +1,6 @@
-import DefaultDygraphLine from './js/default.dygraph.line'
+let DefaultDygraphLine = require('../defaults/dygraph.line')
 
-export default Object.merge(Object.clone(DefaultDygraphLine),{
+module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
   match: /^blockdevices\..*/,
   // labeling: function(vm, chart, name, stat){
   //   // //console.log('blkdev_stats', chart, name, stat)

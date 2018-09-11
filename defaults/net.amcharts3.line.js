@@ -1,6 +1,6 @@
 import DefaultAMCharts3Line from './default.amcharts3.line'
 
-export default Object.merge(Object.clone(DefaultAMCharts3Line), {
+module.exports = Object.merge(Object.clone(DefaultAMCharts3Line), {
   axis:['timestamp', 'transmited', 'recived'],
   watch: {
     skip: 60,//some charts like frappe need to skip values for render performance (dygraph does this automatically)

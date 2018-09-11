@@ -1,12 +1,12 @@
-import * as Highcharts from 'highcharts'
+// import * as Highcharts from 'highcharts'
 
 /**
 * boost
 * https://www.highcharts.com/docs/advanced-chart-features/boost-module
 **/
-require('highcharts/modules/boost')(Highcharts)
+// require('highcharts/modules/boost')(Highcharts)
 
-export default {
+module.exports = {
   component: 'highcharts-vue-wrapper',
   "style": "width:100%; height:200px;",
   // type: 'line',

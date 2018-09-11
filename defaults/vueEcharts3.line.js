@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   component: 'vue-echarts3-wrapper',
   type: 'line',
   "style": "width:100%; height:250px;",

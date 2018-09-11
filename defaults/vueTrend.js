@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   component: 'vue-trend-wrapper',
   "interval": 0,
   "options": {

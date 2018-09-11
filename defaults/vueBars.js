@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   component: 'vue-bars-wrapper',
   "interval": 0,
   "options": {

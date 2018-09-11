@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   component: 'frappe-charts-wrapper',
   "style": "width:100%; height:200px;",
   type: 'bar',

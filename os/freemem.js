@@ -1,6 +1,6 @@
-import DefaultDygraphLine from './js/default.dygraph.line'
+let DefaultDygraphLine = require('../defaults/dygraph.line')
 
-export default Object.merge(Object.clone(DefaultDygraphLine),{
+module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
   // icon: 'memory',
   // name: 'os.freemem',
   pre_process: function(chart, name, stat){

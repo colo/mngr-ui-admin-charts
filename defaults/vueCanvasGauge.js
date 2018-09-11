@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   component: 'vue-canvas-gauge-wrapper',
   type: 'radial-gauge',
   "interval": 0,

@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   component: 'vue-easy-pie-chart-wrapper',
   "interval": 0,
   "options": {

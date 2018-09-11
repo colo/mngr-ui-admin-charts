@@ -1,6 +1,6 @@
-import Dygraph from 'dygraphs'
+// import Dygraph from 'dygraphs'
 
-export default {
+module.exports = {
     component: 'dygraph-wrapper',
     "style": "width:100%; height:180px;",
     "class": "netdata-chart-with-legend-right netdata-dygraph-chart-with-legend-right",

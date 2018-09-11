@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   component: 'q-knob-wrapper',
   "interval": 0,
   "options": {

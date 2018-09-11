@@ -1,5 +1,5 @@
 
-export default {
+module.exports = {
   component: 'amcharts3-wrapper',
   "style": "width:100%; height:200px;",
   // type: 'bar',
