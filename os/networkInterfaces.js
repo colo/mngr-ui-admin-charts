@@ -31,7 +31,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
     // cumulative: true,
     transform: function(values, vm, chart){
       // let watcher = chart.watch || {}
-      // console.log('networkInterfaces transform: ', values)
+      console.log('networkInterfaces transform: ', values)
 
 
       let transformed = []
@@ -45,8 +45,8 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
         let current = {
           timestamp: val.timestamp,
           value: {
-            recived: val.value[iface].recived[messure] * -1,
-            transmited:val.value[iface].transmited[messure] * 1
+            recived: (val.value[iface]) ? val.value[iface].recived[messure] * -1: 0,
+            transmited: (val.value[iface]) ? val.value[iface].transmited[messure] * 1: 0
           }
         }
 
