@@ -6,6 +6,9 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
   // name: function(vm, chart, stats){
   //   return vm.host+'_os.cpus_times'
   // },
+  pre_process: function(chart, name, stat){
+    return chart
+  },
   options: {
     labels: ['Time', 'recived', 'transmited'],
   },
