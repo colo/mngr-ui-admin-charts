@@ -6,7 +6,7 @@ module.exports = {
     "class": "netdata-chart-with-legend-right netdata-dygraph-chart-with-legend-right",
     "interval": 0,
     // init: function (vm, chart, name, stat, type ){
-    //   // //console.log('init', vue)
+    //   // ////console.log('init', vue)
     //   this.$vm = vue
     //   // EventBus.$emit('cpu', doc) //update cpu widget
     // },
@@ -28,7 +28,7 @@ module.exports = {
         ){
 
 
-          // console.log('Array.isArray(stat[0].value)', stat[0].value)
+          // //console.log('Array.isArray(stat[0].value)', stat[0].value)
           Object.each(stat[0].value[0][chart.watch.value], function(tmp, tmp_key){
             if(
               !chart.watch
@@ -106,7 +106,7 @@ module.exports = {
             })
 
             chart.options.labels.unshift('Time')
-            console.log('chart.options.labels', name, chart.options.labels)
+            //console.log('chart.options.labels', name, chart.options.labels)
 
           }
           // else if (
@@ -115,7 +115,7 @@ module.exports = {
           // ) {//like minute.loadavg|cpus|etc...
           // // else{
           //
-          //   console.log('pre_process ', chart, name, stat)
+          //   //console.log('pre_process ', chart, name, stat)
           //
           //   Object.each(stat[0].value, function(tmp, tmp_key){
           //     if(!chart.watch || chart.watch.exclude.test(tmp_key) == false)
@@ -151,7 +151,7 @@ module.exports = {
         }
       }
 
-      // console.log('pre_process)', name, chart)
+      // //console.log('pre_process)', name, chart)
 
       return chart
     },

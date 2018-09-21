@@ -35,7 +35,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
     * @trasnform: diff between each value against its prev one
     */
     transform: function(values, caller, chart){
-      // //////console.log('transform: ', values)
+      // ////////console.log('transform: ', values)
       let transformed = []
       // let prev = {idle: 0, total: 0, timestamp: 0 }
       Array.each(values, function(val, index){
@@ -48,8 +48,8 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
         ){
           // let transform = {timestamp: val.timestamp, value: { times: {} } }
 
-          // console.log('no prev percentage', chart.prev)
-          console.log('no prev percentage', new Date(chart.prev.timestamp), new Date(val.timestamp), index)
+          // //console.log('no prev percentage', chart.prev)
+          //console.log('no prev percentage', new Date(chart.prev.timestamp), new Date(val.timestamp), index)
 
           chart.prev = Object.clone(val)
 
@@ -68,7 +68,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
 
           // transformed.push(transform)
 
-          // console.log('chart.prev.timestamp', chart.prev)
+          // //console.log('chart.prev.timestamp', chart.prev)
 
         }
         else{
@@ -89,13 +89,13 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
           let diff_total = current.total - prev.total;
           let diff_idle = current.idle - prev.idle;
 
-          // //////console.log('transform: ', current, prev)
+          // ////////console.log('transform: ', current, prev)
 
           //algorithm -> https://github.com/pcolby/scripts/blob/master/cpu.sh
           let percentage =  (diff_time * (diff_total - diff_idle) / diff_total ) / (diff_time * 0.01)
 
           if(percentage > 100){
-            //console.log('cpu transform: ', diff_time, diff_total, diff_idle)
+            ////console.log('cpu transform: ', diff_time, diff_total, diff_idle)
           }
 
           transform.value.times.usage = (percentage > 100) ? 100 : percentage

@@ -89,7 +89,7 @@ module.exports = {
       * stat[N].value.stats[in_flight|io_ticks...]
       */
       else if(isNaN(stat[0].value) && !Array.isArray(stat[0].value)){//an Object
-        // console.log('pre_process frappe-charts-wrapper', chart, name, stat)
+        // //console.log('pre_process frappe-charts-wrapper', chart, name, stat)
 
         //if no "watch.value" property, everything should be manage on "trasnform" function
         if(
@@ -265,7 +265,7 @@ module.exports = {
       }
     }
 
-    // console.log('pre_process frappe-charts-wrapper', chart, name)
+    // //console.log('pre_process frappe-charts-wrapper', chart, name)
 
     return chart
   },
@@ -341,8 +341,8 @@ module.exports = {
       });
 
       chart.addListener("dataUpdated", function(event) {
-        console.log('chart.zoomStartDate',chart.zoomStartDate);
-        console.log('chart.zoomEndDate', chart.zoomEndDate);
+        //console.log('chart.zoomStartDate',chart.zoomStartDate);
+        //console.log('chart.zoomEndDate', chart.zoomEndDate);
         if(chart.zoomStartDate != chart.zoomEndDate)
           chart.zoomToDates(chart.zoomStartDate, chart.zoomEndDate);
       });

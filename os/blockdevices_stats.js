@@ -3,7 +3,7 @@ let DefaultDygraphLine = require('../defaults/dygraph.line')
 module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
   match: /^blockdevices\..*/,
   // labeling: function(vm, chart, name, stat){
-  //   // //console.log('blkdev_stats', chart, name, stat)
+  //   // ////console.log('blkdev_stats', chart, name, stat)
   //
   //   return vm.host+'_os.'+name
   // },
@@ -18,7 +18,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
     * @trasnform: diff between each value against its prev one
     */
     transform: function(values, caller, chart){
-      // console.log('blockdevices transform: ', values)
+      // //console.log('blockdevices transform: ', values)
 
       let transformed = []
       let prev = null
@@ -31,7 +31,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
           // || chart.prev.timestamp < val.timestamp - 1999
           // || chart.prev.timestamp > val.timestamp + 1999
         ){
-          console.log('no prev blockdevice', new Date(chart.prev.timestamp), new Date(val.timestamp), index)
+          //console.log('no prev blockdevice', new Date(chart.prev.timestamp), new Date(val.timestamp), index)
 
           chart.prev = Object.clone(val)
         }
@@ -63,7 +63,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
 
 
       })
-      console.log('blockdevices transform: ', transformed)
+      //console.log('blockdevices transform: ', transformed)
       return transformed
     }
   }

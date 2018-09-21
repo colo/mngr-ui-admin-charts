@@ -28,7 +28,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
   //   ){
   //     if(vm.$store.state.hosts[vm.host])
   //     chart.options.valueRange = [0, Math.round((vm.$store.state.hosts[vm.host].os.totalmem[0].value / 1024) / 1024) ]
-  //     //////console.log('valueRange', chart)
+  //     ////////console.log('valueRange', chart)
   //   }
   //
   // },

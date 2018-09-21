@@ -21,7 +21,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
 
       // values.sort(function(a,b) {return (a.timestamp > b.timestamp) ? 1 : ((b.timestamp > a.timestamp) ? -1 : 0);} )
 
-      // console.log('transform: ', values, Object.clone(chart))
+      // //console.log('transform: ', values, Object.clone(chart))
 
       let transformed = []
       // let prev = null
@@ -36,7 +36,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
           || chart.prev.timestamp > val.timestamp + 1999
         ){
           // let transform = {timestamp: val.timestamp, value: { times: {} } }
-          console.log('no prev times', new Date(chart.prev.timestamp), new Date(val.timestamp), index)
+          //console.log('no prev times', new Date(chart.prev.timestamp), new Date(val.timestamp), index)
 
 
           chart.prev.timestamp = val.timestamp
@@ -53,7 +53,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
 
           // transformed.push(transform)
 
-          // console.log('chart.prev.timestamp', chart.prev)
+          // //console.log('chart.prev.timestamp', chart.prev)
 
         }
         else{
@@ -87,7 +87,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
 
       })
 
-      console.log('transformed: ', transformed)
+      //console.log('transformed: ', transformed)
       return transformed
     }
   }

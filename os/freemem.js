@@ -17,7 +17,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
     * @trasnform: diff between each value against its prev one
     */
     transform: function(values){
-      // //////console.log('transform: ', values)
+      // ////////console.log('transform: ', values)
       let transformed = []
 
       Array.each(values, function(val, index){
@@ -25,13 +25,13 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
         transformed.push(transform)
       })
 
-      // //////console.log('transform: ', transformed)
+      // ////////console.log('transform: ', transformed)
 
       return transformed
     }
   },
   init: function (vm, chart, name, stat, type){
-    // console.log('init freemem', type, vm, vm.$store.state.hosts.current, vm.$store.state.stats)
+    // //console.log('init freemem', type, vm, vm.$store.state.hosts.current, vm.$store.state.stats)
     if(type == 'chart'
       && vm.$store.state.hosts
       && vm.$store.state.stats

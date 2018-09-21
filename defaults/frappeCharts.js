@@ -48,7 +48,7 @@ module.exports = {
 
             let counter = 0
             Object.each(d.value[0][chart.watch.value], function(tmp, tmp_key){
-              // console.log('TMP val', tmp)
+              // //console.log('TMP val', tmp)
 
               if(d_index == 0){
                 chart.options.data.datasets.push({
@@ -69,7 +69,7 @@ module.exports = {
           }
         })
 
-        // // console.log('Array.isArray(stat[0].value)', stat[0].value)
+        // // //console.log('Array.isArray(stat[0].value)', stat[0].value)
         // Object.each(stat[0].value[0][chart.watch.value], function(tmp, tmp_key){
         //   chart.options.labels.push(tmp_key)
         // })
@@ -82,7 +82,7 @@ module.exports = {
       * stat[N].value.stats[in_flight|io_ticks...]
       */
       else if(isNaN(stat[0].value) && !Array.isArray(stat[0].value)){//an Object
-        // console.log('pre_process frappe-charts-wrapper', chart, name, stat)
+        // //console.log('pre_process frappe-charts-wrapper', chart, name, stat)
 
         //if no "watch.value" property, everything should be manage on "trasnform" function
         if(
@@ -208,7 +208,7 @@ module.exports = {
       }
     }
 
-    // console.log('pre_process frappe-charts-wrapper', chart, name)
+    // //console.log('pre_process frappe-charts-wrapper', chart, name)
 
     return chart
   },

@@ -13,14 +13,14 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
     labels: ['Time', 'recived', 'transmited'],
   },
   init: function (vm, chart, name, networkInterfaces, type ){
-    // console.log('networkInterfaces init: ', vm, chart, name, networkInterfaces, type)
+    // ////console.log('networkInterfaces init: ', vm, chart, name, networkInterfaces, type)
     if(type == 'chart'){
       let splited = name.split('_')
       chart['__messure'] = splited.pop()
       chart['__iface'] = splited.pop()
     }
 
-    // console.log('networkInterfaces init: ', vm, chart, name, networkInterfaces, type)
+    // ////console.log('networkInterfaces init: ', vm, chart, name, networkInterfaces, type)
   },
   prev: {
     timestamp: 0,
@@ -34,7 +34,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
     // cumulative: true,
     transform: function(values, vm, chart){
       // let watcher = chart.watch || {}
-      console.log('networkInterfaces transform: ', values)
+      ////console.log('networkInterfaces transform: ', values)
 
 
       let transformed = []
@@ -53,7 +53,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
           }
         }
 
-        // console.log('transform current', current)
+        // ////console.log('transform current', current)
 
 
         if(
@@ -90,7 +90,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
       return transformed
 
 
-      // // // ////////////////console.log('networkInterfaces', networkInterfaces)
+      // // // ////////////////////console.log('networkInterfaces', networkInterfaces)
       // //
       // if(networkInterfaces.getLast() !== null){
       //
@@ -151,7 +151,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
       //         }
       //         else{
       //           data = []
-      //           //////////////////console.log('stats.value[iface] undefined', iface)
+      //           //////////////////////console.log('stats.value[iface] undefined', iface)
       //           /**
       //           * should notify error??
       //           **/

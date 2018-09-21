@@ -8,7 +8,7 @@ module.exports = {
     skip: 30,//some charts like frappe need to skip values for render performance (dygraph does this automatically)
   },
   pre_process: function(chart, name, stat){
-    // console.log('vue-echarts3-wrapper', chart, name, stat)
+    // //console.log('vue-echarts3-wrapper', chart, name, stat)
 
 
     if(!chart.options
@@ -100,7 +100,7 @@ module.exports = {
       * stat[N].value.stats[in_flight|io_ticks...]
       */
       else if(isNaN(stat[0].value) && !Array.isArray(stat[0].value)){//an Object
-        // console.log('pre_process frappe-charts-wrapper', chart, name, stat)
+        // //console.log('pre_process frappe-charts-wrapper', chart, name, stat)
 
         //if no "watch.value" property, everything should be manage on "trasnform" function
         if(
@@ -267,7 +267,7 @@ module.exports = {
       }
     }
 
-    // console.log('pre_process frappe-charts-wrapper', chart, name)
+    // //console.log('pre_process frappe-charts-wrapper', chart, name)
 
     return chart
   },

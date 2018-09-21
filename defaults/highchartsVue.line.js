@@ -46,7 +46,7 @@ module.exports = {
         && chart.watch && chart.watch.value
         && stat[0].value[0][chart.watch.value]
       ){
-        console.log('highcharts-vue-wrapper', chart, name, stat)
+        //console.log('highcharts-vue-wrapper', chart, name, stat)
 
         Array.each(stat, function(d, d_index){
           if(
@@ -61,7 +61,7 @@ module.exports = {
 
             let counter = 0
             Object.each(d.value[0][chart.watch.value], function(tmp, tmp_key){
-              // console.log('TMP val', tmp)
+              // //console.log('TMP val', tmp)
 
               if(d_index == 0){
                 chart.options.series.push({
@@ -108,7 +108,7 @@ module.exports = {
       * stat[N].value.stats[in_flight|io_ticks...]
       */
       else if(isNaN(stat[0].value) && !Array.isArray(stat[0].value)){//an Object
-        console.log('highcharts-vue-wrapper', chart, name, stat)
+        //console.log('highcharts-vue-wrapper', chart, name, stat)
 
         //if no "watch.value" property, everything should be manage on "trasnform" function
         if(
@@ -261,7 +261,7 @@ module.exports = {
       }
     }
 
-    // console.log('pre_process frappe-charts-wrapper', chart, name)
+    // //console.log('pre_process frappe-charts-wrapper', chart, name)
 
     return chart
   },
