@@ -32,14 +32,17 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
   },
   init: function (vm, chart, name, stat, type){
     // //console.log('init freemem', type, vm, vm.$store.state.hosts.current, vm.$store.state.stats)
-    if(type == 'chart'
-      && vm.$store.state.hosts
-      && vm.$store.state.stats
+    if(
+			chart.totalmem
+			|| (type == 'chart'
+				&& vm.$store.state.hosts
+				&& vm.$store.state.stats)
     ){
       let host = vm.$store.state.hosts.current
+      let totalmem = chart.totalmem || vm.$store.state.stats[host].os.totalmem.value.data
       chart.options.valueRange = [
         0,
-        Math.round((vm.$store.state.stats[host].os.totalmem.value.data / 1024) / 1024)
+        Math.round((totalmem / 1024) / 1024)
       ]
 
     }
