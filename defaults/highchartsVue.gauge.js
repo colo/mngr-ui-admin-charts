@@ -1,10 +1,10 @@
-// import * as Highcharts from 'highcharts'
-//
-// require('highcharts/highcharts-more')(Highcharts)
-// require('highcharts/modules/solid-gauge')(Highcharts)
-// // require('highcharts/modules/heatmap')(Highcharts)
-// // require('highcharts/modules/treemap')(Highcharts)
-// // require('highcharts/modules/funnel')(Highcharts)
+import * as Highcharts from 'highcharts'
+
+require('highcharts/highcharts-more')(Highcharts)
+require('highcharts/modules/solid-gauge')(Highcharts)
+// require('highcharts/modules/heatmap')(Highcharts)
+// require('highcharts/modules/treemap')(Highcharts)
+// require('highcharts/modules/funnel')(Highcharts)
 
 module.exports = {
   component: 'highcharts-vue-wrapper',
