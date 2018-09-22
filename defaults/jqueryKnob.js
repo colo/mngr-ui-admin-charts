@@ -13,7 +13,7 @@ module.exports = {
 		/**
 		 * display mode "cursor", cursor size could be changed passing a numeric value to the option, default width is used when passing boolean value "true" | default=gauge.
 		 **/
-		cursor : 'gauge',
+		//cursor : 'gauge',
 		//thickness : gauge thickness.
 		lineCap : 'butt', //gauge stroke endings. | default=butt, round=rounded line endings
 		//width : dial width.
