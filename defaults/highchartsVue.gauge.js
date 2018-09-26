@@ -1,6 +1,3 @@
-//import * as Highcharts from 'highcharts'
-
-// let Highcharts = require('highcharts')
 
 
 // Highcharts.createElement('link', {
@@ -75,10 +72,16 @@
 module.exports = function(Highcharts){
 	require('highcharts/highcharts-more')(Highcharts)
 	require('highcharts/modules/solid-gauge')(Highcharts)
+	require('highcharts/js/themes/grid-light')(Highcharts)
+	require('highcharts/css/highcharts.css')
+	require('highcharts/css/themes/grid-light.css')
+
+
+
 	return {
 		component: 'highcharts-vue-wrapper',
 		class: undefined,
-		// "style": "width:100px; height:100px;",
+		// "style": "width: 300px; height: 200px; float: left",
 		"interval": 0,
 		watch: {
 			// skip: 30,//some charts like frappe need to skip values for render performance (dygraph does this automatically)
@@ -90,12 +93,16 @@ module.exports = function(Highcharts){
 		"options": {
 
 			chart: {
-				
 				type: 'solidgauge',
-				height: 120,
-				borderWidth: 0,
-				plotBorderWidth: 0,
-					// width: 120,
+				height: 200,
+				width: 320,
+				borderWidth: -1,
+				plotBorderWidth: -1,
+				plotBorderColor: 'none',
+				shadow: undefined,
+				backgroundColor: 'none',
+				plotBackgroundColor: 'none',
+				borderColor: 'none'
 			},
 
 			title: null,
@@ -106,7 +113,8 @@ module.exports = function(Highcharts){
 					startAngle: -90,
 					endAngle: 90,
 					background: {
-							// borderColor: 'none',
+							borderWidth: -1,
+							borderColor: '#FFFFFF',
 							backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
 							innerRadius: '60%',
 							outerRadius: '100%',
