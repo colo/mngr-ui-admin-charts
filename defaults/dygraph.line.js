@@ -2,7 +2,8 @@
 
 module.exports = {
     component: 'dygraph-wrapper',
-    "style": "width:100%; height:180px;",
+    //"style": "width:100%; height:180px;",
+    "style": "width:100%; height:154px;",
     "class": "netdata-chart-with-legend-right netdata-dygraph-chart-with-legend-right",
     "interval": 0,
     // init: function (vm, chart, name, stat, type ){
