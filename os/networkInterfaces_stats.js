@@ -33,7 +33,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
     // cumulative: true,
     transform: function(values, vm, chart){
       // let watcher = chart.watch || {}
-      // console.log('networkInterfaces stats transform: ', values[0].value.errs)
+      console.log('networkInterfaces stats transform: ', values[0])
 
 
       let transformed = []
@@ -49,18 +49,15 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
           value: {}
         }
 
-        Object.each(val.value, function(data, messure){
-          if(!current.value[messure])
-            current.value[messure] = {}
+        // Object.each(val.value, function(data, messure){
+          // if(!current.value[messure])
+          //   current.value[messure] = {}
+
+          current.value.recived = (val.value.recived) ? val.value.recived * -1 : 0
+          current.value.transmited = (val.value.transmited) ? val.value.transmited * 1: 0
 
 
-          current.value[messure].recived = (val.value[messure].recived) ? val.value[messure].recived * -1 : 0
-
-
-          current.value[messure].transmited = (val.value[messure].transmited) ? val.value[messure].transmited * 1: 0
-
-
-        })
+        // })
 
 
         // console.log('transform current', current)
@@ -77,14 +74,16 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
           let transform = {timestamp: val.timestamp, value: { } }
           let prev = Object.clone(chart.prev)
 
-          Object.each(current.value, function(data, messure){
-            if(!transform.value[messure])
-              transform.value[messure] = {recived: 0, transmited: 0}
+          // Object.each(current.value, function(data, messure){
+            // if(!transform.value[messure])
+            //   transform.value[messure] = {recived: 0, transmited: 0}
 
-            transform.value[messure].recived = (prev.value[messure].recived == 0) ? 0 : current.value[messure].recived - prev.value[messure].recived
-            transform.value[messure].transmited = (prev.value[messure].transmited == 0) ? 0 : current.value[messure].transmited - prev.value[messure].transmited
+            // transform.value[messure].recived = (prev.value[messure].recived == 0) ? 0 : current.value[messure].recived - prev.value[messure].recived
+            // transform.value[messure].transmited = (prev.value[messure].transmited == 0) ? 0 : current.value[messure].transmited - prev.value[messure].transmited
+            transform.value.recived = (prev.value.recived == 0) ? 0 : current.value.recived - prev.value.recived
+            transform.value.transmited = (prev.value.transmited == 0) ? 0 : current.value.transmited - prev.value.transmited
 
-          })
+          // })
 
           //
           // if(messure == 'bytes'){ //bps -> Kbps
