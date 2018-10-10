@@ -32,8 +32,9 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
 
         if(
           chart.prev.timestamp == 0
-          || chart.prev.timestamp < val.timestamp - 1999
-          || chart.prev.timestamp > val.timestamp + 1999
+          || chart.prev.timestamp > val.timestamp
+          //|| chart.prev.timestamp < val.timestamp - 1999
+          //|| chart.prev.timestamp > val.timestamp + 1999
         ){
           // let transform = {timestamp: val.timestamp, value: { times: {} } }
           //console.log('no prev times', new Date(chart.prev.timestamp), new Date(val.timestamp), index)

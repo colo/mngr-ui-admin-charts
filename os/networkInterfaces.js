@@ -58,8 +58,9 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
 
         if(
           chart.prev.timestamp == 0
-          || chart.prev.timestamp < current.timestamp - 1999
-          || chart.prev.timestamp > current.timestamp + 1999
+          || chart.prev.timestamp > current.timestamp
+          //|| chart.prev.timestamp < current.timestamp - 1999
+          //|| chart.prev.timestamp > current.timestamp + 1999
         ){
           chart.prev = Object.clone(current)
         }
