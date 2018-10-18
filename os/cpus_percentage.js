@@ -34,11 +34,13 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
     /**
     * @trasnform: diff between each value against its prev one
     */
-    transform: function(values, caller, chart){
+    transform: function(values, caller, chart, cb){
       // ////////console.log('transform: ', values)
       let transformed = []
       // let prev = {idle: 0, total: 0, timestamp: 0 }
-      Array.each(values, function(val, index){
+      // Array.each(values, function(val, index){
+      for(let index = 0; index < values.length; index++){
+        let val = values[index]
 
         if(
           chart.prev.timestamp == 0
@@ -111,10 +113,13 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
           transformed.push(transform)
         }
 
+        if(index == values.length -1)
+          cb( transformed )
 
-      })
+      }
+      // })
 
-      return transformed
+      // return transformed
 
     }
   },

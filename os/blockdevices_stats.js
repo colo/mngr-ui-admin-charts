@@ -17,7 +17,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
     /**
     * @trasnform: diff between each value against its prev one
     */
-    transform: function(values, caller, chart){
+    transform: function(values, caller, chart, cb){
       // //console.log('blockdevices transform: ', values)
 
       let transformed = []
@@ -61,10 +61,11 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
 
         }
 
-
+        if(index == values.length -1)
+          cb( transformed )
       })
       //console.log('blockdevices transform: ', transformed)
-      return transformed
+      // return transformed
     }
   }
 

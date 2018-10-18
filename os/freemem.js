@@ -16,7 +16,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
     /**
     * @trasnform: diff between each value against its prev one
     */
-    transform: function(values){
+    transform: function(values, vm, chart, cb){
       // ////////console.log('transform: ', values)
       let transformed = []
 

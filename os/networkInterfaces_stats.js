@@ -31,21 +31,24 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
   watch: {
     // managed: true,
     // cumulative: true,
-    transform: function(values, vm, chart){
+    transform: function(values, vm, chart, cb){
       // let watcher = chart.watch || {}
-      console.log('networkInterfaces stats transform: ', values[0])
+      // console.log('networkInterfaces stats transform: ', Array.clone(values), Object.clone(chart.prev))
 
 
       let transformed = []
       // let iface = chart.__iface
       // let messure = chart.__messure
 
-      Array.each(values, function(val, index){
+      // Array.each(values, function(val, index){
+      for(let index = 0; index < values.length; index++){
+        let val = values[index]
+
         /**
         * recived = negative, so it end up ploting under X axis
         **/
         let current = {
-          timestamp: val.timestamp,
+          timestamp: val.timestamp * 1,
           value: {}
         }
 
@@ -72,7 +75,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
           chart.prev = Object.clone(current)
         }
         else{
-          let transform = {timestamp: val.timestamp, value: { } }
+          let transform = {timestamp: current.timestamp * 1, value: { } }
           let prev = Object.clone(chart.prev)
 
           // Object.each(current.value, function(data, messure){
@@ -92,6 +95,8 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
           //     transform.value.recived = transform.value.recived / 128
           // }
 
+          // console.log('networkInterfaces stats transform: ',transform.timestamp, prev,  transformed)
+
           if(transform.timestamp > chart.prev.timestamp)
             transformed.push(transform)
 
@@ -99,10 +104,18 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
 
           // if(index == values.length -1)
           //   chart.prev.timestamp = 0
+
         }
 
-      })
-      return transformed
+        if(index == values.length -1){
+          cb( transformed )
+        }
+
+      }
+
+      // cb( transformed )
+      // })
+      // return transformed
 
 
 
