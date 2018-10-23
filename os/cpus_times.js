@@ -21,7 +21,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
 
       // values.sort(function(a,b) {return (a.timestamp > b.timestamp) ? 1 : ((b.timestamp > a.timestamp) ? -1 : 0);} )
 
-      // //console.log('transform: ', values, Object.clone(chart))
+      console.log('cpus_times transform: ', values)
 
       let transformed = []
       // let prev = null
@@ -29,6 +29,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
       // Array.each(values, function(val, index){
       for(let index = 0; index < values.length; index++){
         let val = values[index]
+
 
         if(
           chart.prev.timestamp == 0
@@ -41,46 +42,59 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
 
 
           chart.prev.timestamp = val.timestamp
-          Object.each(val.value.times, function(stat, key){
-            if(key == 'idle'){
-              chart.prev.value.times[key] = stat - 1
-            }
-            else{
-              chart.prev.value.times[key] = stat
-            }
+          chart.prev.value.times = Object.clone(val.value.times)
 
-            // transform.value.times[key] = 0
-          })
+          // Object.each(val.value.times, function(stat, key){
+          //   if(key == 'idle'){
+          //     chart.prev.value.times[key] = stat * -1
+          //   }
+          //   else{
+          //     chart.prev.value.times[key] = stat
+          //   }
+          //
+          //   // transform.value.times[key] = 0
+          // })
 
           // transformed.push(transform)
 
           // //console.log('chart.prev.timestamp', chart.prev)
 
         }
-        else{
+        else if(chart.prev.timestamp > 0){
           let transform = {timestamp: val.timestamp, value: { times: {} } }
           let prev = Object.clone(chart.prev)
           Object.each(val.value.times, function(stat, key){
 
-            if(key == 'idle'){//represent idle on the negative sideof axes
-              stat = stat * -1
-              let value = ((stat + prev.value.times[key]) < 0) ? stat + prev.value.times[key] : 0
-              transform.value.times[key] = value
-            }
-            else{
+            // if(key == 'idle'){//represent idle on the negative sideof axes
+            //   // stat = stat * -1
+            //   let value = ((stat - prev.value.times[key]) < 0) ? stat - prev.value.times[key] : 0
+            //   transform.value.times[key] = value
+            // }
+            // else{
               let value = ((stat - prev.value.times[key]) > 0) ? stat - prev.value.times[key] : 0
               transform.value.times[key] = value
-            }
+              if(key == 'idle')//represent idle on the negative sideof axes
+                transform.value.times[key] *= -1
+
+            // }
           })
 
+          let not_all_zeros = false
+          Object.each(transform.value.times, function(value, prop){
+            if(value != 0)
+              not_all_zeros = true
+          })
 
-          if(transform.timestamp > chart.prev.timestamp)
-            transformed.push(transform)
+          if(not_all_zeros){
+            console.log('cpus times', transform.value)
 
-          // val.value.times.idle = val.value.times.idle * -1
+            if(transform.timestamp > prev.timestamp)
+              transformed.push(transform)
 
-          chart.prev = Object.clone(val)
+            // val.value.times.idle = val.value.times.idle * -1
 
+            chart.prev = Object.clone(val)
+          }
           // if(index == values.length -1)
           //   chart.prev.timestamp = 0
         }

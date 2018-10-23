@@ -35,7 +35,8 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
     * @trasnform: diff between each value against its prev one
     */
     transform: function(values, caller, chart, cb){
-      // ////////console.log('transform: ', values)
+      // console.log('transform cpus_percentage: ', values)
+      
       let transformed = []
       // let prev = {idle: 0, total: 0, timestamp: 0 }
       // Array.each(values, function(val, index){
@@ -104,13 +105,15 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
 
 
           // chart.prev = Object.clone(current)
+          if(transform.timestamp > prev.timestamp)
+            transformed.push(transform)
 
           chart.prev = Object.clone(current)
 
           // if(index == values.length -1)
           //   chart.prev.timestamp = 0
 
-          transformed.push(transform)
+          // transformed.push(transform)
         }
 
         if(index == values.length -1)
