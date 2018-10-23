@@ -86,7 +86,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
           })
 
           if(not_all_zeros){
-            console.log('cpus times', transform.value)
+            //console.log('cpus times', transform.value)
 
             if(transform.timestamp > prev.timestamp)
               transformed.push(transform)
