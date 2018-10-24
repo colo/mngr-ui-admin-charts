@@ -36,7 +36,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
     */
     transform: function(values, caller, chart, cb){
       // console.log('transform cpus_percentage: ', values)
-      
+
       let transformed = []
       // let prev = {idle: 0, total: 0, timestamp: 0 }
       // Array.each(values, function(val, index){
@@ -47,7 +47,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
           chart.prev.timestamp == 0
           || chart.prev.timestamp > val.timestamp
           // || chart.prev.timestamp < val.timestamp - 1999
-          // || chart.prev.timestamp > val.timestamp + 1999
+          // || chart.prev.timestamp > val.timestamp + 1001
         ){
           // let transform = {timestamp: val.timestamp, value: { times: {} } }
 
