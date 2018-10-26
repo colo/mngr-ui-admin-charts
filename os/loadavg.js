@@ -1,7 +1,7 @@
 let DefaultDygraphLine = require('../defaults/dygraph.line')
 
 module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
-	// "interval": 5,
+	"interval": 5,
   "skip": 5,
   
   pre_process: function(chart, name, stat){
