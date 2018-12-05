@@ -17,7 +17,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
     * @trasnform: diff between each value against its prev one
     */
     transform: function(values, vm, chart, cb){
-      // ////////console.log('transform: ', values)
+      // console.log('freemem transform: ', values)
       let transformed = []
 
       Array.each(values, function(val, index){
@@ -31,24 +31,35 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
     }
   },
   init: function (vm, chart, name, stat, type){
-    // //console.log('init freemem', type, vm, vm.$store.state.hosts.current, vm.$store.state.stats)
+
+    // if(
+		// 	chart.totalmem
+		// 	|| (type == 'chart'
+		// 		&& vm.$store.state.hosts
+		// 		&& vm.$store.state.stats)
+    // ){
+    //   let host = vm.$store.state.hosts.current
+    //   let totalmem = chart.totalmem || vm.$store.state.stats[host].os.totalmem.value.data
+    //   chart.options.valueRange = [
+    //     0,
+    //     Math.round((totalmem / 1024) / 1024)
+    //   ]
+    //
+    // }
     if(
 			chart.totalmem
-			|| (type == 'chart'
-				&& vm.$store.state.hosts
-				&& vm.$store.state.stats)
     ){
-      let host = vm.$store.state.hosts.current
-      let totalmem = chart.totalmem || vm.$store.state.stats[host].os.totalmem.value.data
+      console.log('init freemem', chart, Math.round((chart.totalmem / 1024) / 1024))
+
       chart.options.valueRange = [
         0,
-        Math.round((totalmem / 1024) / 1024)
+        Math.round((chart.totalmem / 1024) / 1024)
       ]
 
     }
-
   },
   "options": {
     labels: ['Time', 'Mbytes'],
+    valueRange: []
   }
 })
