@@ -41,7 +41,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
 
       for(let index = 0; index < values.length; index++){
         let val = values[index]
-        transformed.push({timestamp: val.timestamp, count: Object.keys(val.value).length})
+        transformed.push({timestamp: val.timestamp, value: Object.keys(val.value).length})
         //
         //
         // if(
