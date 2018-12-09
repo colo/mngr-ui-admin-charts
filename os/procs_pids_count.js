@@ -7,7 +7,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
   },
   "options": {
     labels: ['Time', 'count'],
-  }
+  },
   match: /^procs/,
   /**
   * @var: save prev cpu data, need to calculate current cpu usage
