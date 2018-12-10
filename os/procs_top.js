@@ -8,11 +8,11 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
     // while(count <= chart.top){
     //   chart.options.labels.push(count)
     // }
-    let count = 1
-    while(count <= chart.top){
-      chart.options.labels.push('top '+count)
-      count++
-    }
+    //let count = 1
+    //while(count <= chart.top){
+      //chart.options.labels.push('top '+count)
+      //count++
+    //}
     return chart
   },
   "options": {
