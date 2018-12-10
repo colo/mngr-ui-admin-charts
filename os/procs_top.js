@@ -23,7 +23,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
   * @var: save prev cpu data, need to calculate current cpu usage
   **/
   //prev: {timestamp: 0, value: { times: {} } },
-  top: 3,
+  top: 5,
   watch: {
     // merge: true,
     // cumulative: true,
