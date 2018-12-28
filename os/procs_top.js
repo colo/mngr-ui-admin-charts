@@ -96,7 +96,7 @@ let DefaultDygraphLine = require('../defaults/dygraph.line')
 let allowed_names = /cpu|mem|elapsed|time|count/
 module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
   pre_process: function(chart, name, stat){
-    // debug_internals('pre_process %s %o', name, stat)
+    debug_internals('pre_process %s %o', name, stat)
     // chart.name = name
     // if(allowed_names.test(name)){
     return chart
@@ -123,10 +123,17 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
 
     // value: undefined,
     transform: function(values, caller, chart, cb){
-      // // debug_internals('transform %o %s', values, chart.matched)
+      // // debug_internals('transform %o %s', values, chart.name)
       if(allowed_names.test(chart.name)){
-        let matched_type = chart.type.exec(chart.path)[1]
-        debug_internals('transform %s %s', chart.path, chart.name, matched_type)
+        let matched_type = chart.type.exec(chart.path)
+        if(Array.isArray(matched_type)){
+          matched_type = matched_type[1]
+        }
+        else{
+          matched_type = 'pid'
+        }
+
+        debug_internals('transform %s %s %s', chart.path, chart.name, matched_type)
 
         // //console.log('os_procs_stats_percentage_mem transform', values)
         let transformed = []
@@ -167,10 +174,10 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
           Array.each(val.value, function(data, data_index){
             let _index = chart.top.pids.indexOf(data[matched_type])
             if(_index > -1){
-              transform_value[_index] = data[chart.matched]
+              transform_value[_index] = data[chart.name]
             }
             else{
-              transform_value[_others_index] = (!transform_value[_others_index]) ? data[chart.matched] : transform_value[_others_index] + data[chart.matched]
+              transform_value[_others_index] = (!transform_value[_others_index]) ? data[chart.name] : transform_value[_others_index] + data[chart.name]
             }
           })
 
@@ -183,11 +190,14 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
 
           if(index == values.length -1){
             // //console.log('transformed: ', transformed)
-            debug_internals('transform %o %s', transformed, chart.matched)
+            debug_internals('transform %o %s', transformed, chart.name)
             cb( transformed )
           }
         }
 
+      }
+      else{
+        cb( [] )
       }
     }
   }
