@@ -96,7 +96,7 @@ let DefaultDygraphLine = require('../defaults/dygraph.line')
 let allowed_names = /cpu|mem|elapsed|time|count/
 module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
   pre_process: function(chart, name, stat){
-    debug_internals('pre_process %s %o', name, stat)
+    // debug_internals('pre_process %s %o', name, stat)
     // chart.name = name
     // if(allowed_names.test(name)){
     return chart
@@ -117,14 +117,16 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
   // "options": undefined,
   // match: /^os_procs_stats$/,
   // match: /^[a-zA-Z0-9_]*$/,
+  type: /^os_procs_(.*?)_stats\.top$/,
+
   watch: {
 
     // value: undefined,
     transform: function(values, caller, chart, cb){
       // // debug_internals('transform %o %s', values, chart.matched)
-      if(allowed_names.test(chart.matched)){
-
-        // debug_internals('transform %o %s', values, chart.matched)
+      if(allowed_names.test(chart.name)){
+        let matched_type = chart.type.exec(chart.path)[1]
+        debug_internals('transform %s %s', chart.path, chart.name, matched_type)
 
         // //console.log('os_procs_stats_percentage_mem transform', values)
         let transformed = []
@@ -144,19 +146,17 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
           //
           if(chart.options.labels.length == 1){//process for the first time only, if you wanna re process, you need to reload
             Array.each(val.value, function(data, data_index){
-              // //console.log('pre transformed: ', data)
-              // if(index < chart.top)
-              //   transform_value.push(data['pid']*1)
+              debug_internals('val.value %o', data)
 
               if(chart.options.labels.length < chart.top.count){
                 // chart.options.labels[index + 1] = 'pid['+data.pid+']'
-                chart.options.labels.push('pid['+data['pid']+']')
-                chart.top.pids.push(data['pid'])
+                chart.options.labels.push(matched_type+'['+data[matched_type]+']')
+                chart.top.pids.push(data[matched_type])
               }
 
             })
 
-            chart.options.labels.push('pid[others]')
+            chart.options.labels.push(matched_type+'[others]')
           }
 
           let transform_value = new Array(chart.options.labels.length - 1)
@@ -165,7 +165,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
 
           let _others_index = chart.options.labels.length - 2 //remember, first label is Time
           Array.each(val.value, function(data, data_index){
-            let _index = chart.top.pids.indexOf(data['pid'])
+            let _index = chart.top.pids.indexOf(data[matched_type])
             if(_index > -1){
               transform_value[_index] = data[chart.matched]
             }
