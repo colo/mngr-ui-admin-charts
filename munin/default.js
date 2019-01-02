@@ -11,15 +11,15 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
     debug_internals('pre_process %s %o', name, stat)
     return chart
   },
-  top: {
-    count: 5,
-    pids: []
-  },
+  // top: {
+  //   count: 5,
+  //   pids: []
+  // },
 
-  "options": {
-    // valueRange: [0, 100],
-    labels: ['Time'],
-  },
+  // "options": {
+  //   // valueRange: [0, 100],
+  //   labels: ['Time'],
+  // },
   // "options": undefined,
   // match: /^os_procs_stats$/,
   // match: /^[a-zA-Z0-9_]*$/,
