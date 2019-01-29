@@ -1,5 +1,8 @@
 let DefaultDygraphLine = require('../defaults/dygraph.line')
 
+let debug = require('debug')('mngr-ui-admin-charts:os:cpus_percentage'),
+    debug_internals = require('debug')('mngr-ui-admin-charts:os:cpus_percentage:Internals');
+
 module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
   // name: 'os.cpus_simple',
   name: function(vm, chart, stats){
@@ -36,6 +39,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
     */
     transform: function(values, caller, chart, cb){
       // console.log('transform cpus_percentage: ', values)
+      // values.sort(function(a,b) {return (a.timestamp > b.timestamp) ? 1 : ((b.timestamp > a.timestamp) ? -1 : 0);} )
 
       let transformed = []
       // let prev = {idle: 0, total: 0, timestamp: 0 }
@@ -75,6 +79,8 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
 
         }
         else{
+          debug_internals('transform', val)
+
           let transform = {timestamp: val.timestamp, value: { times: { usage: 0} } }
           let current = {idle: 0, total: 0, timestamp: val.timestamp }
           let prev = Object.clone(chart.prev)
@@ -97,17 +103,20 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
           //algorithm -> https://github.com/pcolby/scripts/blob/master/cpu.sh
           let percentage =  (diff_time * (diff_total - diff_idle) / diff_total ) / (diff_time * 0.01)
 
-          if(percentage > 100){
-            ////console.log('cpu transform: ', diff_time, diff_total, diff_idle)
+          debug_internals('percentage', percentage)
+
+          // if(percentage > 100){
+          //   ////console.log('cpu transform: ', diff_time, diff_total, diff_idle)
+          // }
+
+          if(!isNaN(percentage)){
+            transform.value.times.usage = (percentage > 100) ? 100 : percentage
+
+
+            // chart.prev = Object.clone(current)
+            if(transform.timestamp > prev.timestamp)
+              transformed.push(transform)
           }
-
-          transform.value.times.usage = (percentage > 100) ? 100 : percentage
-
-
-          // chart.prev = Object.clone(current)
-          if(transform.timestamp > prev.timestamp)
-            transformed.push(transform)
-
           chart.prev = Object.clone(current)
 
           // if(index == values.length -1)

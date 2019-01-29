@@ -1,7 +1,12 @@
 let DefaultDygraphLine = require('../defaults/dygraph.line')
 
+let debug = require('debug')('mngr-ui-admin-charts:os.networkInterfaces.stats'),
+    debug_internals = require('debug')('mngr-ui-admin-charts:os.networkInterfaces.stats:Internals');
+
+
 module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
-  match: /^networkInterfaces/,
+
+  match: /^os\.networkInterfaces\.stats$/,
 
   // name: function(vm, chart, stats){
   //   return vm.host+'_os.cpus_times'
@@ -32,6 +37,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
     // managed: true,
     // cumulative: true,
     transform: function(values, vm, chart, cb){
+      debug_internals('transform', values)
       // let watcher = chart.watch || {}
       // console.log('networkInterfaces stats transform: ', Array.clone(values), Object.clone(chart.prev))
 

@@ -1,16 +1,19 @@
 let DefaultDygraphLine = require('../defaults/dygraph.line')
 
+let debug = require('debug')('mngr-ui-admin-charts:os.mounts'),
+    debug_internals = require('debug')('mngr-ui-admin-charts:os.mounts:Internals');
+
 module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
   // name: 'mounts_percentage',
   pre_process: function(chart, name, stat){
     return chart
   },
-  match: /^mounts/,
+  match: /^os\.mounts/,
   // label: 'somelabel',
-  labeling: function(vm, chart, name, stat){
-
-    return vm.host+'_os.mounts['+stat[0].value.mount_point+']'
-  },
+  // labeling: function(vm, chart, name, stat){
+  //
+  //   return vm.host+'_os.mounts['+stat[0].value.mount_point+']'
+  // },
   watch: {
     // merge: true,
     filters: [{

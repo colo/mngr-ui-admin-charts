@@ -97,7 +97,8 @@ let allowed_names = /cpu|mem|elapsed|time|count/
 module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
   pre_process: function(chart, name, stat){
     debug_internals('pre_process %s %o', name, stat)
-    // chart.name = name
+    chart.path = name.substring(0, name.indexOf('.'))
+    chart.name = name.substring(name.indexOf('.')+1)
     // if(allowed_names.test(name)){
     return chart
     // }
@@ -117,14 +118,16 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
   // "options": undefined,
   // match: /^os_procs_stats$/,
   // match: /^[a-zA-Z0-9_]*$/,
-  type: /^os_procs_(.*?)_stats\.top$/,
+  // type: /^os_procs_(.*?)_stats$/,
 
   watch: {
 
     // value: undefined,
     transform: function(values, caller, chart, cb){
-      // // debug_internals('transform %o %s', values, chart.name)
-      if(allowed_names.test(chart.name)){
+      chart.type = /^os_procs_(.*?)_stats$/
+      // debug_internals('transform %o %s %s', values, chart.name, chart.path)
+
+      // if(allowed_names.test(chart.name)){
         let matched_type = chart.type.exec(chart.path)
         if(Array.isArray(matched_type)){
           matched_type = matched_type[1]
@@ -195,10 +198,10 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
           }
         }
 
-      }
-      else{
-        cb( [] )
-      }
+      // }
+      // else{
+      //   cb( [] )
+      // }
     }
   }
 })

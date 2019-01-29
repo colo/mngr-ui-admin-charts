@@ -1,7 +1,10 @@
 let DefaultDygraphLine = require('../defaults/dygraph.line')
 
+let debug = require('debug')('mngr-ui-admin-charts:os.blockdevices'),
+    debug_internals = require('debug')('mngr-ui-admin-charts:os.blockdevices:Internals');
+
 module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
-  match: /^blockdevices\..*/,
+  match: /^os\.blockdevices\..*/,
   // labeling: function(vm, chart, name, stat){
   //   // ////console.log('blkdev_stats', chart, name, stat)
   //
@@ -18,6 +21,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
     * @trasnform: diff between each value against its prev one
     */
     transform: function(values, caller, chart, cb){
+      debug_internals('transform', values)
       // //console.log('blockdevices transform: ', values)
 
       let transformed = []

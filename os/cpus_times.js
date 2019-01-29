@@ -1,23 +1,35 @@
 let DefaultDygraphLine = require('../defaults/dygraph.line')
 
+let debug = require('debug')('mngr-ui-admin-charts:os:cpus_times'),
+    debug_internals = require('debug')('mngr-ui-admin-charts:os:cpus_times:Internals');
+
+
 module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
   // name: 'os.cpus_times',
   // name: function(vm, chart, stats){
   //   return vm.host+'_os_cpus_times'
   // },
-  match: /^cpus/,
+
+  // match: /^cpus/,
+  // pre_process: function(chart, name, stat){
+  //   // debug_internals('chart, name, stat', chart, name, stat[0].value)
+  //
+  //   return chart
+  // },
+
   /**
   * @var: save prev cpu data, need to calculate current cpu usage
   **/
   prev: {timestamp: 0, value: { times: {} } },
   watch: {
-    // merge: true,
+    merge: true,
     // cumulative: true,
     value: 'times',
     /**
     * @trasnform: diff between each value against its prev one
     */
     transform: function(values, caller, chart, cb){
+      // values.sort(function(a,b) {return (a.timestamp > b.timestamp) ? 1 : ((b.timestamp > a.timestamp) ? -1 : 0);} )
 
       // values.sort(function(a,b) {return (a.timestamp > b.timestamp) ? 1 : ((b.timestamp > a.timestamp) ? -1 : 0);} )
 
@@ -26,25 +38,28 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
       let transformed = []
       // let prev = null
 
-      // Array.each(values, function(val, index){
-      let not_all_zeros = false
-      Object.each(chart.prev.value.times, function(value, prop){
-        if(value != 0)
-          not_all_zeros = true
-      })
+      // // Array.each(values, function(val, index){
+      // let not_all_zeros = false
+      // Object.each(chart.prev.value.times, function(value, prop){
+      //   if(value != 0)
+      //     not_all_zeros = true
+      // })
 
       for(let index = 0; index < values.length; index++){
         let val = values[index]
 
-
         if(
-          not_all_zeros == false
-          // || (values.length > 1 && index == 0)//first item of range data
-          || chart.prev.timestamp == 0
+          chart.prev.timestamp == 0
           || chart.prev.timestamp > val.timestamp
-          || chart.prev.timestamp < val.timestamp - 1999//is time diff is almost 2 secs
-          // || chart.prev.timestamp > val.timestamp + 999
         ){
+        // if(
+        //   not_all_zeros == false
+        //   // || (values.length > 1 && index == 0)//first item of range data
+        //   || chart.prev.timestamp == 0
+        //   || chart.prev.timestamp > val.timestamp
+        //   || chart.prev.timestamp < val.timestamp - 1999//is time diff is almost 2 secs
+        //   // || chart.prev.timestamp > val.timestamp + 999
+        // ){
           // let transform = {timestamp: val.timestamp, value: { times: {} } }
           //console.log('no prev times', new Date(chart.prev.timestamp), new Date(val.timestamp), index)
 
@@ -70,6 +85,8 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
 
         }
         else {
+          debug_internals('transform', val)
+
           let transform = {timestamp: val.timestamp, value: { times: {} } }
           let prev = Object.clone(chart.prev)
 
@@ -107,18 +124,18 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
               // }
             })
 
-              let transform_not_all_zeros = false
-              Object.each(transform.value.times, function(value, prop){
-                if(value > 0)
-                  transform_not_all_zeros = true
-              })
+              // let transform_not_all_zeros = false
+              // Object.each(transform.value.times, function(value, prop){
+              //   if(value > 0)
+              //     transform_not_all_zeros = true
+              // })
 
 
               transform.value.times['idle'] *= -1
 
 
-
-              if(transform.timestamp > prev.timestamp && transform_not_all_zeros == true){
+              if(transform.timestamp > prev.timestamp){
+              // if(transform.timestamp > prev.timestamp && transform_not_all_zeros == true){
                 // console.log('cpus times',  prev.timestamp, val.timestamp, prev.value.times, val.value.times)
                 transformed.push(transform)
               }
@@ -126,13 +143,13 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
               // val.value.times.idle = val.value.times.idle * -1
           }
 
-          let all_bigger = true
-          Object.each(val.value.times, function(value, prop){
-            if(value < prev.value.times[prop])
-              all_bigger = false
-          })
-
-          if(all_bigger == true)
+          // let all_bigger = true
+          // Object.each(val.value.times, function(value, prop){
+          //   if(value < prev.value.times[prop])
+          //     all_bigger = false
+          // })
+          //
+          // if(all_bigger == true)
             chart.prev = Object.clone(val)
 
           // if(index == values.length -1)
