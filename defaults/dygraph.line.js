@@ -97,15 +97,16 @@ module.exports = {
               obj = stat[0].value
             }
 
-            Object.each(obj, function(tmp, tmp_key){
-              if(
-                !chart.watch
-                || !chart.watch.exclude
-                || (chart.watch.exclude && chart.watch.exclude.test(tmp_key) == false)
-              )
+            if(obj && obj !== null)
+              Object.each(obj, function(tmp, tmp_key){
+                if(
+                  !chart.watch
+                  || !chart.watch.exclude
+                  || (chart.watch.exclude && chart.watch.exclude.test(tmp_key) == false)
+                )
 
-                chart.options.labels.push(tmp_key)
-            })
+                  chart.options.labels.push(tmp_key)
+              })
 
             chart.options.labels.unshift('Time')
             //console.log('chart.options.labels', name, chart.options.labels)
