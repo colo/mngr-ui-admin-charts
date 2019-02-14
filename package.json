@@ -1,19 +1,47 @@
 {
-  "name": "mngr-ui-admin-charts",
-  "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "_args": [
+    [
+      "git+https://github.com/colo/mngr-ui-admin-charts.git",
+      "/home/colo/projects/mngr-ui-admin"
+    ]
+  ],
+  "_from": "git+https://github.com/colo/mngr-ui-admin-charts.git",
+  "_id": "mngr-ui-admin-charts@git+https://github.com/colo/mngr-ui-admin-charts.git#48c7ad6a609ca4efcd86be59918980fc04e1375c",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/mngr-ui-admin-charts",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "git+https://github.com/colo/mngr-ui-admin-charts.git",
+    "rawSpec": "git+https://github.com/colo/mngr-ui-admin-charts.git",
+    "saveSpec": "git+https://github.com/colo/mngr-ui-admin-charts.git",
+    "fetchSpec": "https://github.com/colo/mngr-ui-admin-charts.git",
+    "gitCommittish": null
   },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "git+https://github.com/colo/mngr-ui-admin-charts.git#48c7ad6a609ca4efcd86be59918980fc04e1375c",
+  "_spec": "git+https://github.com/colo/mngr-ui-admin-charts.git",
+  "_where": "/home/colo/projects/mngr-ui-admin",
+  "author": {
+    "name": "Luciano Bueno"
+  },
+  "bugs": {
+    "url": "https://github.com/colo/mngr-ui-admin-charts/issues"
+  },
+  "description": "",
+  "homepage": "https://github.com/colo/mngr-ui-admin-charts#readme",
+  "license": "ISC",
+  "main": "index.js",
+  "name": "mngr-ui-admin-charts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/colo/mngr-ui-admin-charts.git"
   },
-  "author": "Luciano Bueno",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/colo/mngr-ui-admin-charts/issues"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "homepage": "https://github.com/colo/mngr-ui-admin-charts#readme"
+  "version": "0.0.1"
 }
