@@ -1,4 +1,4 @@
-let DefaultDygraphLine = require('../defaults/dygraph.line')
+let DefaultDygraphLine = require('../defaults/net.dygraph.line')
 
 let debug = require('debug')('mngr-ui-admin-charts:os.networkInterfaces.stats'),
     debug_internals = require('debug')('mngr-ui-admin-charts:os.networkInterfaces.stats:Internals');

@@ -1,16 +1,8 @@
-import DefaultDygraphLine from './default.dygraph.line'
+let DefaultDygraphLine = require('./dygraph.line')
 
 module.exports = Object.merge(Object.clone(DefaultDygraphLine), {
   options: {
-    labels: ['Time', 'Out', 'In'],
-    // series: {
-    //   'Out': {
-    //      color: 'red',
-    //   },
-    //   'In': {
-    //      color: 'blue',
-    //   }
-    //
-    // },
+    // labels: ['Time', 'Out', 'In'],
+    fillGraph: true
   }
 })

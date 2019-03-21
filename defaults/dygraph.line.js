@@ -1,4 +1,17 @@
-// import Dygraph from 'dygraphs'
+// const jsEnv = require('browser-or-node');
+//
+// // if (jsEnv.isBrowser) {
+// //   // do browser only stuff
+// // }
+//
+// if (jsEnv.isNode) {
+//   const Window = require('window')
+//   global.window = new Window()
+// }
+//
+//
+//
+// const Dygraph = require('dygraphs')
 
 module.exports = {
     component: 'dygraph-wrapper',
@@ -158,8 +171,9 @@ module.exports = {
 
       return chart
     },
+    
     "options": {
-      axisLabelFontSize: 11,
+      // pixelRatio: 1,
 
       highlightCallback: function(event, x, points, row, seriesName){
         window.EventBus.$emit('highlightCallback', [event, x, points, row, seriesName])
@@ -167,78 +181,26 @@ module.exports = {
       unhighlightCallback: function(event){
         window.EventBus.$emit('unhighlightCallback', event)
       },
-      drawGrid: true,
-      labelsSeparateLines: true,
-      "hideOverlayOnMouseOut": false,
-      "labelsDiv": "netdata-chart-legend",
-      "legend": "always",
-      connectSeparatedPoints: true,
-      // connectSeparatedPoints: false,
-      includeZero: true,
-      fillGraph: true,
-      showRoller: false,
 
       /**
-      * netdata options
-      */
-      rightGap: 5,
-      xRangePad: 1,
-      yRangePad: 1,
-      pixelRatio: 1,
-      drawGapEdgePoints: true,
-      stepPlot: false,
-      gridLinePattern: null,
-      gridLineWidth: 1.0,
-      maxNumberWidth: 8,
-      sigFigs: null,
-      digitsAfterDecimal: 2,
-      // labelsDivStyles: { 'fontSize':'1px' },
-      // labelsDivWidth: self.data('dygraph-labelsdivwidth') || state.chartWidth() - 70,
-      labelsSeparateLines: true,
-      labelsShowZeroValues: true,
-      axes: {
-          x: {
-              pixelsPerLabel: 50,
-              // ticker: Dygraph.dateTicker,
-      //         // axisLabelFormatter: function (d, gran) {
-      //         //     return NETDATA.zeropad(d.getHours()) + ":" + NETDATA.zeropad(d.getMinutes()) + ":" + NETDATA.zeropad(d.getSeconds());
-      //         // },
-              valueFormatter: function (ms) {
-                  var d = new Date(ms);
-                  return d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
-                  // return NETDATA.zeropad(d.getHours()) + ":" + NETDATA.zeropad(d.getMinutes()) + ":" + NETDATA.zeropad(d.getSeconds());
-              }
-          },
-          y: {
-              pixelsPerLabel: 15,
-      //         valueFormatter: function (x) {
-      //             // we format legends with the state object
-      //             // no need to do anything here
-      //             // return (Math.round(x*100) / 100).toLocaleString();
-      //             // return state.legendFormatValue(x);
-      //             return x;
-              // }
-          }
-      },
+      * NETDATA
+      **/
+
       /**
       * netdata white theme
       **/
+      // axisLineColor: self.data('dygraph-axislinecolor') || NETDATA.themes.current.axis,
+      // strokeBorderColor: self.data('dygraph-strokebordercolor') || NETDATA.themes.current.background,
+      // gridLineColor: self.data('dygraph-gridlinecolor') || NETDATA.themes.current.grid,
       axisLineColor: '#CCCCCC',
       strokeBorderColor: '#FFFFFF',
-      gridLineColor: '#DDDDDD',
+      gridLineColor: '#f4f4f4',
       colors: [
         '#3366CC', '#DC3912',   '#109618', '#FF9900',   '#990099', '#DD4477',
         '#3B3EAC', '#66AA00',   '#0099C6', '#B82E2E',   '#AAAA11', '#5574A6',
         '#994499', '#22AA99',   '#6633CC', '#E67300',   '#316395', '#8B0707',
         '#329262', '#3B3EAC'
       ],
-      /**
-      * netdata white theme
-      **/
-
-      /**
-      * netdata white theme
-      **/
 
       /**
       * netdata slate theme
@@ -253,11 +215,112 @@ module.exports = {
       //   '#329262', '#3B3EFF'
       // ],
 
+      rightGap: 5,
+      showRangeSelector: false,
+      showRoller: false,
 
-      /**
-      * netdata options
-      */
+      title: undefined,
+      titleHeight: 19,
 
+      legend: 'always', // 'onmouseover',
+      // labels: data.result.labels,
+      labelsDiv: "netdata-chart-legend",
+      // labelsDivStyles: { 'fontSize':'1px' },
+      // labelsDivWidth: self.data('dygraph-labelsdivwidth') || state.chartWidth() - 70,
+      labelsSeparateLines: true,
+      labelsShowZeroValues: true,
+      labelsKMB: false,
+      labelsKMG2: false,
+      showLabelsOnHighlight: true,
+      hideOverlayOnMouseOut: true, //false
+
+      includeZero: false, //true
+      xRangePad: 0, //1
+      yRangePad: 1,
+
+      valueRange: null,
+
+      // ylabel: state.units,
+      yLabelWidth: 12,
+
+      // the function to plot the chart
+      plotter: null,
+
+      // The width of the lines connecting data points. This can be used to increase the contrast or some graphs.
+      // strokeWidth: self.data('dygraph-strokewidth') || strokeWidth,
+      strokePattern: undefined,
+
+      // The size of the dot to draw on each point in pixels (see drawPoints). A dot is always drawn when a point is "isolated",
+      // i.e. there is a missing point on either side of it. This also controls the size of those dots.
+      drawPoints: false,
+
+      // Draw points at the edges of gaps in the data. This improves visibility of small data segments or other data irregularities.
+      drawGapEdgePoints: true,
+
+      connectSeparatedPoints: false, //true
+      pointSize: 1,
+
+      // enabling this makes the chart with little square lines
+      stepPlot: false,
+
+      // Draw a border around graph lines to make crossing lines more easily distinguishable. Useful for graphs with many lines.
+
+      // strokeBorderWidth: self.data('dygraph-strokeborderwidth') || (chart_type === 'stacked')?0.0:0.0,
+
+      fillGraph: false, //true
+      // fillGraph: self.data('dygraph-fillgraph') || (chart_type === 'area' || chart_type === 'stacked')?true:false,
+      // fillAlpha: self.data('dygraph-fillalpha') || (chart_type === 'stacked')?NETDATA.options.current.color_fill_opacity_stacked:NETDATA.options.current.color_fill_opacity_area,
+      // stackedGraph: self.data('dygraph-stackedgraph') || (chart_type === 'stacked')?true:false,
+      stackedGraphNaNFill: 'none',
+
+      drawAxis: true,
+      axisLabelFontSize: 10, //11
+
+      axisLineWidth: 0.3,
+
+      drawGrid: true,
+      // drawXGrid: undefined,
+      // drawYGrid: undefined,
+      gridLinePattern: null,
+      gridLineWidth: 0.3, //1.0
+
+
+      maxNumberWidth: 8,
+      sigFigs: null,
+      digitsAfterDecimal: 2,
+      valueFormatter: function(x){ return x.toFixed(2); },
+
+      // highlightCircleSize: self.data('dygraph-highlightcirclesize') || highlightCircleSize,
+      highlightSeriesOpts: null, // TOO SLOW: { strokeWidth: 1.5 },
+      highlightSeriesBackgroundAlpha: null, // TOO SLOW: (chart_type === 'stacked')?0.7:0.5,
+
+      pointClickCallback: undefined,
+      // visibility: state.dimensions_visibility.selected2BooleanArray(state.data.dimension_names),
+
+      axes: {
+          x: {
+              pixelsPerLabel: 50,
+              // ticker: Dygraph.dateTicker,
+              axisLabelFormatter: function (d, gran) {
+                  // return NETDATA.zeropad(d.getHours()) + ":" + NETDATA.zeropad(d.getMinutes()) + ":" + NETDATA.zeropad(d.getSeconds());
+                  return d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+              },
+              valueFormatter: function (ms) {
+                  var d = new Date(ms);
+                  return d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
+              }
+          },
+          y: {
+              pixelsPerLabel: 15,
+              valueFormatter: function (x) {
+                  // we format legends with the state object
+                  // no need to do anything here
+                  // return (Math.round(x*100) / 100).toLocaleString();
+                  // return state.legendFormatValue(x);
+                  return x;
+              }
+          }
+      },
 
     }
   }
