@@ -171,9 +171,9 @@ module.exports = {
 
       return chart
     },
-    
+
     "options": {
-      // pixelRatio: 1,
+      pixelRatio: 1,
 
       highlightCallback: function(event, x, points, row, seriesName){
         window.EventBus.$emit('highlightCallback', [event, x, points, row, seriesName])
@@ -192,26 +192,26 @@ module.exports = {
       // axisLineColor: self.data('dygraph-axislinecolor') || NETDATA.themes.current.axis,
       // strokeBorderColor: self.data('dygraph-strokebordercolor') || NETDATA.themes.current.background,
       // gridLineColor: self.data('dygraph-gridlinecolor') || NETDATA.themes.current.grid,
-      axisLineColor: '#CCCCCC',
+      axisLineColor: '#F0F0F0',
       strokeBorderColor: '#FFFFFF',
-      gridLineColor: '#f4f4f4',
+      gridLineColor: '#F0F0F0',
       colors: [
-        '#3366CC', '#DC3912',   '#109618', '#FF9900',   '#990099', '#DD4477',
-        '#3B3EAC', '#66AA00',   '#0099C6', '#B82E2E',   '#AAAA11', '#5574A6',
-        '#994499', '#22AA99',   '#6633CC', '#E67300',   '#316395', '#8B0707',
+        '#3366CC', '#DC3912', '#109618', '#FF9900', '#990099', '#DD4477',
+        '#3B3EAC', '#66AA00', '#0099C6', '#B82E2E', '#AAAA11', '#5574A6',
+        '#994499', '#22AA99', '#6633CC', '#E67300', '#316395', '#8B0707',
         '#329262', '#3B3EAC'
       ],
 
       /**
       * netdata slate theme
       **/
-      // axisLineColor: '#373b40',
+      // axisLineColor: '#283236',
       // strokeBorderColor: '#272b30',
-      // gridLineColor: '#373b40',
+      // gridLineColor: '#283236',
       // colors: [
-      //   '#66AA00', '#FE3912',   '#3366CC', '#D66300',   '#0099C6', '#DDDD00',
-      //   '#5054e6', '#EE9911',   '#BB44CC', '#e45757',   '#ef0aef', '#CC7700',
-      //   '#22AA99', '#109618',   '#905bfd', '#f54882',   '#4381bf', '#ff3737',
+      //   '#66AA00', '#FE3912', '#3366CC', '#D66300', '#0099C6', '#DDDD00',
+      //   '#5054e6', '#EE9911', '#BB44CC', '#e45757', '#ef0aef', '#CC7700',
+      //   '#22AA99', '#109618', '#905bfd', '#f54882', '#4381bf', '#ff3737',
       //   '#329262', '#3B3EFF'
       // ],
 
