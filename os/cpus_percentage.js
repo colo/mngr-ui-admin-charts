@@ -103,7 +103,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
 
           // debug_internals('current %O %O', prev, current)
           //
-          let diff_time = current.timestamp - chart.prev.timestamp
+          // let diff_time = current.timestamp - chart.prev.timestamp
           // let diff_total = current.total - prev.total;
           // let diff_idle = current.idle - prev.idle;
           //
@@ -111,14 +111,14 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
           //
           // //algorithm -> https://github.com/pcolby/scripts/blob/master/cpu.sh
           // // let percentage =  (diff_time * (diff_total - diff_idle) / diff_total ) / (diff_time * 0.01)
-          let percentage =  ((current.total - current.idle) * 100) / current.total
-          debug_internals('percentage', percentage, diff_time)
+          let percentage =  ((current.total - current.idle) * 100) / (current.total + 5)
+          debug_internals('percentage', percentage)
 
           // if(percentage > 100){
           //   ////console.log('cpu transform: ', diff_time, diff_total, diff_idle)
           // }
 
-          if(!isNaN(percentage)){
+          if(!isNaN(percentage) && percentage >= 0){
             transform.value.times.usage = (percentage > 100) ? 100 : percentage
 
 
