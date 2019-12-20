@@ -173,7 +173,7 @@ module.exports = {
     },
 
     "options": {
-      pixelRatio: 1,
+      // pixelRatio: 1,
 
       highlightCallback: function(event, x, points, row, seriesName){
         window.EventBus.$emit('highlightCallback', [event, x, points, row, seriesName])
@@ -282,12 +282,12 @@ module.exports = {
       // drawXGrid: undefined,
       // drawYGrid: undefined,
       gridLinePattern: null,
-      gridLineWidth: 0.3, //1.0
+      // gridLineWidth: 0.3, //1.0
 
 
       maxNumberWidth: 8,
       sigFigs: null,
-      digitsAfterDecimal: 2,
+      // digitsAfterDecimal: 2,
       valueFormatter: function(x){ return x.toFixed(2); },
 
       // highlightCircleSize: self.data('dygraph-highlightcirclesize') || highlightCircleSize,
@@ -296,6 +296,16 @@ module.exports = {
 
       pointClickCallback: undefined,
       // visibility: state.dimensions_visibility.selected2BooleanArray(state.data.dimension_names),
+
+      /**
+      * new values
+      **/
+      digitsAfterDecimal: 16,
+      strokeWidth: 1.5,
+      pixelRatio: null,
+      strokeBorderWidth: 0.0,
+      gridLineWidth: 0.1,
+      /** end new **/
 
       axes: {
           x: {

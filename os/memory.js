@@ -3,10 +3,10 @@ let DefaultDygraphLine = require('../defaults/dygraph.line')
 module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
   // icon: 'memory',
   // name: 'os.freemem',
-  pre_process: function(chart, name, stat){
-    console.log('memory pre_process: ', stat)
-    return chart
-  },
+  // pre_process: function(chart, name, stat){
+  //   // console.log('memory pre_process: ', stat)
+  //   return chart
+  // },
   // name: function(vm, chart, stats){
   //   return vm.host+'_os.freemem'
   // },
@@ -18,22 +18,42 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
     * @trasnform: diff between each value against its prev one
     */
     transform: function(values, vm, chart, cb){
-      console.log('memory transform: ', values)
+      values = Array.clone(values)
       // let transformed = []
-      //
-      // Array.each(values, function(val, index){
-      //   let transform = { timestamp: val.timestamp, value: (val.value / 1024) / 1024 }
-      //   transformed.push(transform)
-      // })
-      //
-      // // ////////console.log('transform: ', transformed)
-      //
-      // return transformed
-      return values
+     //
+     Array.each(values, function(val, index){
+       // let transform = { timestamp: val.timestamp, value: (val.value / 1024) / 1024 }
+       // transformed.push(transform)
+       val[1] = Math.round(val[1] / 1024 / 1024)
+       val.pop()
+     })
+
+     // ////////console.log('transform: ', transformed)
+
+     // return transformed
+     // console.log('memory transform: ', values)
+     return values
     }
   },
   init: function (vm, chart, name, stat, type){
-    console.log('memory init: ', vm, chart, name, stat, type)
+    // console.log('memory init: ', vm, chart, name, stat, type)
+    stat = Array.clone(stat)
+    if(type === 'chart'){
+      let totalmem
+      if(Array.isArray(stat)){
+        // free = stat[0].value[1]
+        totalmem = stat[0].value[2]
+      }
+      else{
+        totalmem = stat.value[2]
+      }
+
+      chart.options.valueRange = [
+        0,
+        Math.round(totalmem / 1024 / 1024)
+      ]
+    }
+
     // if(
 		// 	chart.totalmem
 		// 	|| (type == 'chart'
@@ -61,7 +81,10 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
     // }
   },
   "options": {
-    // labels: ['Time', 'Mbytes'],
+    labels: ['Time', 'Free Mbs'],
+    fillGraph: true,
+    fillAlpha: 0.5,
+    strokeWidth:1,
     valueRange: []
   }
 })
