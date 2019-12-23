@@ -38,6 +38,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
     * @trasnform: diff between each value against its prev one
     */
     transform: function(values, caller, chart, cb){
+      // debug_internals('transform %O', values)
       // console.log('transform cpus_percentage: ', values)
       // values.sort(function(a,b) {return (a.timestamp > b.timestamp) ? 1 : ((b.timestamp > a.timestamp) ? -1 : 0);} )
 
@@ -50,7 +51,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
         if(
           chart.prev.timestamp == 0
           || chart.prev.timestamp > val.timestamp
-          // || chart.prev.timestamp < val.timestamp - 1999
+          || val.timestamp - chart.prev.timestamp > 1000
           // || chart.prev.timestamp > val.timestamp + 1001
         ){
           // let transform = {timestamp: val.timestamp, value: { times: {} } }
@@ -79,45 +80,55 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
 
         }
         else{
-          debug_internals('transform', val)
+          debug_internals('transform %O %O', val, chart.prev)
 
           let transform = {timestamp: val.timestamp, value: { times: { usage: 0} } }
           let current = {idle: 0, total: 0, timestamp: val.timestamp }
-          let prev = Object.clone(chart.prev)
+          // let prev = {idle: 0, total: 0, timestamp: chart.prev.timestamp }
 
-          // if(index == 0){
-          Object.each(val.value.times, function(stat, key){
+          // Object.each(chart.prev.value.times, function(stat, key){
+          //   if(key == 'idle')
+          //     prev.idle += stat
+          //
+          //     prev.total += stat
+          // })
+
+          Object.each(val.value.times, function(time, key){
+            let stat = time - chart.prev.value.times[key]
             if(key == 'idle')
               current.idle += stat
 
               current.total += stat
           })
 
-
-          let diff_time = current.timestamp - prev.timestamp
-          let diff_total = current.total - prev.total;
-          let diff_idle = current.idle - prev.idle;
-
-          // ////////console.log('transform: ', current, prev)
-
-          //algorithm -> https://github.com/pcolby/scripts/blob/master/cpu.sh
-          let percentage =  (diff_time * (diff_total - diff_idle) / diff_total ) / (diff_time * 0.01)
-
+          // debug_internals('current %O %O', prev, current)
+          //
+          // let diff_time = current.timestamp - chart.prev.timestamp
+          // let diff_total = current.total - prev.total;
+          // let diff_idle = current.idle - prev.idle;
+          //
+          // // ////////console.log('transform: ', current, prev)
+          //
+          // //algorithm -> https://github.com/pcolby/scripts/blob/master/cpu.sh
+          // // let percentage =  (diff_time * (diff_total - diff_idle) / diff_total ) / (diff_time * 0.01)
+          let percentage =  ((current.total - current.idle) * 100) / (current.total + 5)
           debug_internals('percentage', percentage)
 
           // if(percentage > 100){
           //   ////console.log('cpu transform: ', diff_time, diff_total, diff_idle)
           // }
 
-          if(!isNaN(percentage)){
+          if(!isNaN(percentage) && percentage >= 0){
             transform.value.times.usage = (percentage > 100) ? 100 : percentage
 
 
             // chart.prev = Object.clone(current)
-            if(transform.timestamp > prev.timestamp)
+            // if(transform.timestamp > chart.prev.timestamp)
               transformed.push(transform)
           }
-          chart.prev = Object.clone(current)
+          // chart.prev = Object.clone(current)
+
+          chart.prev = Object.clone(val)
 
           // if(index == values.length -1)
           //   chart.prev.timestamp = 0
