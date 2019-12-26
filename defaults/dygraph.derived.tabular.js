@@ -18,15 +18,15 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
     * @trasnform: diff between each value against its prev one
     */
     transform: function(values, caller, chart, cb){
-      debug_internals('transform', values, caller, chart, cb)
+      debug_internals('transform %s %o', caller.id, values, chart, cb)
       values = JSON.parse(JSON.stringify(values))
-      if(chart.prev.length === 0 || chart.prev[0] > values[0][0]){//timestamp check
+      if(chart.prev.length === 0 || (values.length > 0 && values[0] !== null && chart.prev[0] > values[0][0])){//timestamp check
         chart.prev = values.shift()
         // chart.prev = values[0]
       }
 
       Array.each(values, function(row){
-        if(row[0] > chart.prev[0]){
+        if(row && row !== null && row[0] > chart.prev[0]){
           let prev_row = Array.clone(row)
 
           Array.each(row, function(col, index){
