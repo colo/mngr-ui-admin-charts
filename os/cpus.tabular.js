@@ -44,9 +44,11 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
               // new_row[index - 1] = (col - chart.prev[index]) / ((row[0] - chart.prev[0]) / 1000) //DERIVE
               sum += new_row[index - 1]
 
-              new_row.push((chart.cores * 10000 ) - sum)//IO
+
             }
           })
+          let _io = (chart.cores * 10000 ) - sum
+          new_row.push((_io < 0) ? 0 : _io)
           // if(sum > (chart.cores * 10000 )){
           //   values[row_index] = undefined
           // }
