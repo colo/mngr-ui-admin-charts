@@ -43,6 +43,8 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
               // new_row[index - 1] = col - chart.prev[index]
               // new_row[index - 1] = (col - chart.prev[index]) / ((row[0] - chart.prev[0]) / 1000) //DERIVE
               sum += new_row[index - 1]
+
+              new_row.push((chart.cores * 10000 ) - sum)//IO
             }
           })
           // if(sum > (chart.cores * 10000 )){
@@ -90,7 +92,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
   },
 
   options: {
-    labels: ['Time', 'idle', 'io', 'irq', 'nice', 'sys', 'user'],
+    labels: ['Time', 'idle', 'irq', 'nice', 'sys', 'user', 'io'],
     stackedGraph: true,
     valueRange: [0]
   }
