@@ -192,9 +192,11 @@ module.exports = {
       // axisLineColor: self.data('dygraph-axislinecolor') || NETDATA.themes.current.axis,
       // strokeBorderColor: self.data('dygraph-strokebordercolor') || NETDATA.themes.current.background,
       // gridLineColor: self.data('dygraph-gridlinecolor') || NETDATA.themes.current.grid,
-      axisLineColor: '#F0F0F0',
-      strokeBorderColor: '#FFFFFF',
-      gridLineColor: '#F0F0F0',
+      // axisLineColor: '#F0F0F0',
+        axisLineColor: '#A0A0A0',
+        strokeBorderColor: '#FFFFFF',
+        // gridLineColor: '#F0F0F0',
+        gridLineColor: '#A0A0A0',
       colors: [
         '#3366CC', '#DC3912', '#109618', '#FF9900', '#990099', '#DD4477',
         '#3B3EAC', '#66AA00', '#0099C6', '#B82E2E', '#AAAA11', '#5574A6',
@@ -302,7 +304,8 @@ module.exports = {
       **/
       digitsAfterDecimal: 16,
       strokeWidth: 1.5,
-      pixelRatio: null,
+      // pixelRatio: null,
+      pixelRatio: 1,
       strokeBorderWidth: 0.0,
       gridLineWidth: 0.1,
       /** end new **/
