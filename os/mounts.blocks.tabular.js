@@ -21,8 +21,10 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
        // transformed.push(transform)
        // val[1] = Math.round(val[1] / 1024 / 1024)
        // val.pop()
-       val[2] = undefined //remove 'total'
-       values[index] = val.clean()
+       if(val.length === 4){
+         val[2] = undefined //remove 'total'
+         values[index] = val.clean()
+       }
      })
 
      debug('trasnform', values)

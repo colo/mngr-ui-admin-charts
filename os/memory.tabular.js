@@ -25,7 +25,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
        // let transform = { timestamp: val.timestamp, value: (val.value / 1024) / 1024 }
        // transformed.push(transform)
        val[1] = Math.round(val[1] / 1024 / 1024)
-       val.pop()
+       if(val[2]) val.pop()
      })
 
      // ////////console.log('transform: ', transformed)
