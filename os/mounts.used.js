@@ -37,6 +37,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
   // // },
   "options": {
     valueRange: [0, 100],
+    strokeWidth: 1.5,
     // labels: ['Time', 'usage %'],
     // series: {
     //  'usage %': {

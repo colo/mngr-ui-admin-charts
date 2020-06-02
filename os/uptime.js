@@ -41,6 +41,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
   },
   "options": {
     digitsAfterDecimal: 2,
+    strokeWidth: 1.5,
     labels: ['Time', 'days'],
   }
 })

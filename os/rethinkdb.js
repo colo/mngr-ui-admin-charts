@@ -75,7 +75,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
     labels: ['Time', 'per second'],
     fillGraph: true,
     fillAlpha: 0.5,
-    strokeWidth:1,
+    // strokeWidth:1,
     // valueRange: []
   }
 })

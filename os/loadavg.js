@@ -10,5 +10,6 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
   "options": {
     // labels: ['Time', '1 min avg', '5 min avg', '15 min avg'],
     fillGraph: false,
+		strokeWidth: 1.5,
   }
 })
