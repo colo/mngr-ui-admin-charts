@@ -1,5 +1,7 @@
 let DefaultDygraphLine = require('../defaults/dygraph.derived.tabular')
 
+const mootools = require("mootools")
+
 let debug = require('debug')('mngr-ui-admin-charts:os:networkInterfaces'),
     debug_internals = require('debug')('mngr-ui-admin-charts:os:networkInterfaces:Internals');
 

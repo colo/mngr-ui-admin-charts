@@ -1,5 +1,7 @@
 let DefaultDygraphLine = require('../defaults/dygraph.derived.tabular')
 
+const mootools = require("mootools")
+
 let debug = require('debug')('mngr-ui-admin-charts:os:blockdevices.time'),
     debug_internals = require('debug')('mngr-ui-admin-charts:os:blockdevices.time:Internals');
 

@@ -1,5 +1,7 @@
 let DefaultDygraphLine = require('../defaults/dygraph.line')
 
+const mootools = require("mootools")
+
 const MINUTE = 60
 const HOUR = MINUTE * 60
 const DAY = HOUR * 24

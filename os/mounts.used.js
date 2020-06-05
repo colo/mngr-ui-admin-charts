@@ -1,5 +1,7 @@
 let DefaultDygraphLine = require('../defaults/dygraph.line')
 
+const mootools = require("mootools")
+
 let debug = require('debug')('mngr-ui-admin-charts:os.mounts.used'),
     debug_internals = require('debug')('mngr-ui-admin-charts:os.mounts.used:Internals');
 

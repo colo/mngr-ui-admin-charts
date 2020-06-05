@@ -5,6 +5,8 @@ let debug_internals = require('debug')('mngr-ui-admin-charts:munin:Internals')
 
 let DefaultDygraphLine = require('../defaults/dygraph.line')
 
+const mootools = require("mootools")
+
 // let allowed_names = /cpu|mem|elapsed|time|count/
 let cumulative = /forks|fw\.packets|mysql\.network\.traffic|mysql\.select\.types|mysql\.bytes|mysql\.connections|nginx\.request/
 let cumulative_negative = /mysql\.bytes\.recv|mysql\.network\.traffic\.Bytesreceived|fw\.packets\.received/

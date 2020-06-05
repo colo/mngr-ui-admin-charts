@@ -1,5 +1,7 @@
 let DefaultDygraphLine = require('../defaults/dygraph.line')
 
+const mootools = require("mootools")
+
 module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
 	"interval": 5,
   "skip": 5,
