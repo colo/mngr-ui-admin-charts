@@ -36,7 +36,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
               //decrease index becasue we won't have 'cores' in graphs
 
               let __val = (col - chart.prev[index]) / ((row[0] - chart.prev[0]) / 1000) //DERIVE
-              new_row[index] = (__val > (chart.cores * 10000 )) ? __val / 2 : __val
+              new_row[index] = (__val > (chart.cores * 1000 )) ? __val / 2 : __val //10000 was for old node version (looks like a bug, 1000 makes sense)
 
               // row[index] = ((index === 5 || index === 6) && __val > 20000) ? __val / 2 : __val
               // row[index] = ((index === 5 || index === 6) && row[index] > 20000) ? -1 : row[index]
@@ -49,7 +49,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
 
             }
           })
-          let _io = (chart.cores * 10000 ) - sum
+          let _io = (chart.cores * 1000 ) - sum //10000 was for old node version (looks like a bug, 1000 makes sense)
           // new_row.push((_io < 0) ? 0 : _io)
           new_row[1] = (_io < 0) ? 0 : _io
           // if(sum > (chart.cores * 10000 )){
@@ -90,7 +90,7 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
 
       chart.options.valueRange = [
         0,
-        cores * 10000
+        cores * 1000 //10000 was for old node version (looks like a bug, 1000 makes sense)
       ]
     }
 
