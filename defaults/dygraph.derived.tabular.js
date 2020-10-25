@@ -5,6 +5,8 @@ const mootools = require("mootools")
 let debug = require('debug')('mngr-ui-admin-charts:defaults:dygraph.derived.tabular'),
     debug_internals = require('debug')('mngr-ui-admin-charts:defaults:dygraph.derived.tabular:Internals');
 
+debug.log = console.log.bind(console)
+debug_internals.log = console.log.bind(console)
 
 module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
 

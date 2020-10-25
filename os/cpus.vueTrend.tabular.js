@@ -1,34 +1,46 @@
-let DefaultDygraphLine = require('../defaults/dygraph.derived.tabular')
+let DefaultVueTrend = require('../defaults/vueTrend')
 
 const mootools = require("mootools")
 
-let debug = require('debug')('mngr-ui-admin-charts:os:cpus'),
-    debug_internals = require('debug')('mngr-ui-admin-charts:os:cpus:Internals');
+let debug = require('debug')('mngr-ui-admin-charts:os:cpus.vueTrend.derived.tabular'),
+    debug_internals = require('debug')('mngr-ui-admin-charts:os:cpus.vueTrend.derived.tabular:Internals');
 
 debug.log = console.log.bind(console)
 debug_internals.log = console.log.bind(console)
 
-module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
-
+module.exports = Object.merge(Object.clone(DefaultVueTrend),{
+  prev: [],
   watch: {
-
+    // merge: true,
+    // cumulative: true,
+    // value: 'times',
     /**
     * @trasnform: diff between each value against its prev one
     */
     transform: function(values, caller, chart, cb){
       let isWindow = (caller && caller.setInterval) ? true : false
+      // debug_internals('transform', isWindow, caller, values, chart, cb)
       /**
       * node-tabular-data/data_to_tabular (used on chart.vue) call this tranform too, avoid runnin it
       * Let it trasnform stat to tabular with generic methods
       * Run this one with only with tabular data
       **/
-      if(isWindow === false){
-        debug('transform %s %o', caller, values, chart, cb)
-        values = JSON.parse(JSON.stringify(values))
+      if(isWindow){
+        // /**
+        // * gauges use only one value, so we keep 'last' one, the one with biggest timestamp
+        // * sort in desc order
+        // **/
+        // if(values && Array.isArray(values)){
+        //   values.sort(function (a, b) { return (a.timestamp > b.timestamp) ? 1 : ((b.timestamp > a.timestamp) ? -1 : 0) })
+        //   values = [values[0],values[1]]
+        // }
+        //
+        // // debug_internals('transform2 %o', values)
 
+      }
+      else{
         if(chart.prev.length === 0 || (values.length > 0 && values[0] !== null && chart.prev[0] > values[0][0])){//timestamp check
           chart.prev = values.shift()
-          // chart.prev = values[0]
         }
 
         Array.each(values, function(row, row_index){
@@ -48,46 +60,42 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
                 let __val = (col - chart.prev[index]) / ((row[0] - chart.prev[0]) / 1000) //DERIVE
                 new_row[index] = (__val > (chart.cores * 1000 )) ? __val / 2 : __val //10000 was for old node version (looks like a bug, 1000 makes sense)
 
-                // row[index] = ((index === 5 || index === 6) && __val > 20000) ? __val / 2 : __val
-                // row[index] = ((index === 5 || index === 6) && row[index] > 20000) ? -1 : row[index]
-
-
-                // new_row[index - 1] = col - chart.prev[index]
-                // new_row[index - 1] = (col - chart.prev[index]) / ((row[0] - chart.prev[0]) / 1000) //DERIVE
                 sum += new_row[index]
 
 
               }
             })
             let _io = (chart.cores * 1000 ) - sum //10000 was for old node version (looks like a bug, 1000 makes sense)
-            // new_row.push((_io < 0) ? 0 : _io)
+
             new_row[1] = (_io < 0) ? 0 : _io
-            // if(sum > (chart.cores * 10000 )){
-            //   values[row_index] = undefined
-            // }
-            // else{
-              values[row_index] = new_row
-            // }
+            values[row_index] = new_row
 
             chart.prev = prev_row
           }
         })
 
-        values = values.clean()
-
         debug_internals('transform3', chart.cores, values, caller, chart, cb)
+        let rows = []
+        Array.each(values, function(row){
+          let percentage = ( (( (chart.cores * 1000) - row[2] ) * 100) / (chart.cores * 1000)).toFixed(2) * 1 // (total - idle) * 100 / total
+          rows.push(percentage)
+        })
+
+        values = rows
+        // values = values[values.length - 1]//take last one, hast the biggest timestamp
+        // let percentage = ( (( (chart.cores * 1000) - values[2] ) * 100) / (chart.cores * 1000)).toFixed(2) * 1 // (total - idle) * 100 / total
+        // values = [values[0], percentage]
+
+
       }
 
-
-
       return values
-    }
+    },
   },
-
   init: function (vm, chart, name, stat, type){
     // console.log('memory init: ', vm, chart, name, stat, type)
-    stat = Array.clone(stat)
     debug('init', vm, chart, name, stat, type)
+    stat = Array.clone(stat)
 
     let cores
     if(/^chart/.test(type)){
@@ -114,18 +122,12 @@ module.exports = Object.merge(Object.clone(DefaultDygraphLine),{
 
       chart.cores = cores
 
-      chart.options.valueRange = [
-        0,
-        cores * 1000 //10000 was for old node version (looks like a bug, 1000 makes sense)
-      ]
+      // chart.options.valueRange = [
+      //   0,
+      //   cores * 1000 //10000 was for old node version (looks like a bug, 1000 makes sense)
+      // ]
     }
 
   },
-
-  options: {
-    labels: ['Time', 'io', 'idle', 'irq', 'nice', 'sys', 'user' ],
-    stackedGraph: true,
-    valueRange: [0]
-  }
 
 })

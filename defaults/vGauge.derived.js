@@ -1,29 +1,19 @@
+let DefaultVGauge = require('./vGauge')
+
 const mootools = require("mootools")
 
-let debug = require('debug')('mngr-ui-admin-charts:defaults:vueEasyPieChart'),
-    debug_internals = require('debug')('mngr-ui-admin-charts:defaults:vueEasyPieChart:Internals');
+let debug = require('debug')('mngr-ui-admin-charts:defaults:vGauge.derived'),
+    debug_internals = require('debug')('mngr-ui-admin-charts:defaults:vGauge.derived:Internals');
 
 debug.log = console.log.bind(console)
 debug_internals.log = console.log.bind(console)
 
+module.exports = Object.merge(Object.clone(DefaultVGauge),{
 
-module.exports = {
-  class: 'netdata-chart netdata-easypiechart-chart',
-  component: 'vue-easy-pie-chart-wrapper',
-  "interval": 0,
-  pre_process: function(chart, name, stat){
-    debug('pre_process', chart, name, stat)
-    if(chart && chart.params)
-      chart.params.title = name
-
-    return chart
-  },
-  init: function (vm, chart, name, stat, type){
-    debug('init', typeof vm, chart, name, stat, type)
-    if(chart && chart.params)
-      chart.params.title = name
-
-  },
+  /**
+  * @var: save prev cpu data, need to calculate current cpu usage
+  **/
+  prev: [],
   watch: {
     /**
     * @trasnform: diff between each value against its prev one
@@ -43,7 +33,7 @@ module.exports = {
         **/
         if(values && Array.isArray(values)){
           values.sort(function (a, b) { return (a.timestamp > b.timestamp) ? 1 : ((b.timestamp > a.timestamp) ? -1 : 0) })
-          values = values[0]
+          values = [values[0],values[1]]
         }
 
         debug_internals('transform2 %o', values)
@@ -56,17 +46,4 @@ module.exports = {
     },
   },
 
-  "params": {
-    size: 100,
-    animate: true,
-    // 'track-color': "yellow-3",
-    // 'scale-color': 'primary',
-    'bar-color': 'blue',
-    // 'line-width': 5
-    'size': 130,
-    'title': undefined,
-    'unit': '%',
-  },
-
-
-}
+})
