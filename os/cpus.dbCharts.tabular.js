@@ -11,7 +11,7 @@ debug_internals.log = console.log.bind(console)
 module.exports = Object.merge(Object.clone(DefaultDbCharts),{
 
   watch: {
-    skip: 60,//some charts like frappe need to skip values for render performance (dygraph does this automatically)
+    skip: 15,//some charts like frappe need to skip values for render performance (dygraph does this automatically)
     managed: true,
     /**
     * @trasnform: diff between each value against its prev one

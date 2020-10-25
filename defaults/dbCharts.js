@@ -430,10 +430,10 @@ module.exports = {
     if(chart.options && !chart.options.title) chart.options.title = name
     return chart
   },
-  "props": {
-    height: 250,
-    component: 'DbChartjsLine',
-  },
+  // "props": {
+  //   height: 250,
+  //   component: 'DbChartjsLine',
+  // },
   // "options": {
   //   stackedGraph: true,
   //   title: 'Traffic over time',
