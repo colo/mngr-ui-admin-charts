@@ -117,6 +117,7 @@ module.exports = Object.merge(Object.clone(DefaultApexchartBar),{
     xaxis: {
       type: undefined,
       labels: {
+        // format: 'HH/mm/s',
         formatter: function (value, timestamp) {
           // debug('formatter', value, timestamp)
           // return new Date(timestamp) // The formatter function overrides format property

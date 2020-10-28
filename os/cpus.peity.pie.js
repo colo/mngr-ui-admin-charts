@@ -83,8 +83,10 @@ module.exports = Object.merge(Object.clone(Default),{
         debug_internals('transform3', chart.cores, values, caller, chart, cb)
 
         values = values[values.length - 1]//take last one, hast the biggest timestamp
-        let percentage = ( (( (chart.cores * 1000) - values[2] ) * 100) / (chart.cores * 1000)).toFixed(2) * 1 // (total - idle) * 100 / total
-        // values = [values[0], percentage]
+        let percentage = 0
+        if(values && values[2]){
+          percentage = ( (( (chart.cores * 1000) - values[2] ) * 100) / (chart.cores * 1000)).toFixed(2) * 1 // (total - idle) * 100 / total
+        }
         let data = percentage+'/100'
 
         return data
