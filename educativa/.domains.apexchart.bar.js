@@ -25,10 +25,9 @@ debug_internals.log = console.log.bind(console)
 //
 
 module.exports = Object.merge(Object.clone(DefaultApexchartBar),{
-  skip: 15,
 
   watch: {
-    // managed: true,
+    managed: true,
     /**
     * @trasnform: diff between each value against its prev one
     */
@@ -45,40 +44,27 @@ module.exports = Object.merge(Object.clone(DefaultApexchartBar),{
 
 
         let series = {}
-        Object.each(values[0].value, function(count, domain){
-          if(!series[domain]) series[domain] = {name: domain, data: []}
 
-          // series[domain].data.push(count)
-        })
-
-        chart.series = series
-
-        debug('transformed', chart.series)
-        return values
-      }
-      else{
-        let series = {}
-        chart.options.labels = []
         Array.each(values, function(value, index){
+          // let d = new Date(value.timestamp * 1)
+          // // debug('transform %o', value)
+          // let label = [d.getHours(),d.getMinutes(),d.getSeconds()].join(':')
+          // chart.options.labels.push(label)
+          chart.options.labels.push(value.timestamp)
 
-          chart.options.labels.push(value[0]) //timestamp
+          Object.each(value.value, function(count, domain){
+            if(!series[domain]) series[domain] = {name: domain, data: []}
 
-          let series_index = 0
-          Object.each(chart.series, function(row, domain){
-            if(domain !== 'Total'){
-              series[domain] = row
-              series[domain].data.push(value[series_index + 1])
-            }
-            series_index++
+            series[domain].data.push(count)
           })
-
         })
 
         debug('transformed', Object.values(series))
-        return Object.values(series)
+        cb('domain', Object.values(series))
       }
-
-      // return values
+      else{
+        return values
+      }
     }
   },
 
@@ -86,34 +72,8 @@ module.exports = Object.merge(Object.clone(DefaultApexchartBar),{
     debug('init', vm, chart, name, stat, type)
 
   },
-  props:{
-    height: 240
-  },
+
   options: {
-    yaxis: {
-      labels: {
-        padding: 32
-      },
-    },
-    labels: [
-      // '2020-06-20', '2020-06-21', '2020-06-22', '2020-06-23', '2020-06-24', '2020-06-25', '2020-06-26', '2020-06-27', '2020-06-28', '2020-06-29', '2020-06-30', '2020-07-01', '2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09', '2020-07-10', '2020-07-11', '2020-07-12', '2020-07-13', '2020-07-14', '2020-07-15', '2020-07-16', '2020-07-17', '2020-07-18', '2020-07-19', '2020-07-20', '2020-07-21', '2020-07-22', '2020-07-23', '2020-07-24', '2020-07-25', '2020-07-26'
-    ],
-    // colors: ['#206bc4', '#79a6dc', '#bfe399'],
-    legend: {
-      show: true,
-      position: 'right',
-      height: 240,
-      width: 160,
-      offsetY: 8,
-      markers: {
-        width: 8,
-        height: 8,
-        radius: 100,
-      },
-      itemMargin: {
-        horizontal: 8,
-      },
-    },
     xaxis: {
       type: undefined,
       labels: {
